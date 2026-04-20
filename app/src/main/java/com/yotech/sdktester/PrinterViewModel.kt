@@ -108,12 +108,12 @@ class PrinterViewModel(application: Application) : AndroidViewModel(application)
     fun printTestReceipt() {
         viewModelScope.launch(Dispatchers.IO) {
             val payloadRaw = PrintPayload.RawText("Test Receipt\nHello World!\n----------------\n\n\n\n")
+            val payloadUnknown = PrintPayload.Unknown("Test Receipt\nHello World!\n----------------\n\n\n\n")
 //            val payloadKitchen = PrintPayload.Kitchen("Test Kitchen")
             val payload = PrintPayload.Billing(BillingData(
                     // Restaurant Identity (Dishoom Kensington)
                     restaurantName = "Dishoom Kensington",
                     restaurantPhone = "+44 20 7420 9325",
-                    logoResId = Icons.Default.Coffee, // R.drawable.ic_dishoom_logo
 
                     // Address Information (Official UK Format)
                     addressLine1 = "4 Derry Street",
