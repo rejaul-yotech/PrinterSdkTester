@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Standard USB Printer Class (Class: 7) -->
+    <usb-device class="7" />
+
+    <!-- Sunmi STMicro Vendor ID (1155) -->
+    <usb-device vendor-id="1155" />
+</resources>

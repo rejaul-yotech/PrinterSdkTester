@@ -72,6 +72,24 @@ class PrinterViewModel(application: Application) : AndroidViewModel(application)
                 }
             }
         }
+
+        // Observe status for Error/Reconnecting to trigger strict Return-to-Idle policy
+        viewModelScope.launch {
+            sdk.printerState.collect { state ->
+                if (state is PrinterState.Error || state is PrinterState.Reconnecting) {
+                    // Force returned to idle by clearing any in-flight recovery
+                    // We call it on a delay or specifically to ensure we don't recursive-loop
+                    if (state is PrinterState.Error) {
+                        android.widget.Toast.makeText(
+                            application, 
+                            "Printer Offline: ${state.message}", 
+                            android.widget.Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    sdk.disconnect()
+                }
+            }
+        }
     }
 
     fun startScan() {
